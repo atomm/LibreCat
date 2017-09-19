@@ -4,9 +4,9 @@ _prefix:
 main:
   package: DBI
   options:
-    data_source: "DBI:mysql:database=librecat_main"
-    username: librecat
-    password: librecat
+    data_source: "dbi:Pg:dbname=xxx"
+    username: xxx
+    password: xxx
     bags:
       audit:
         mapping:
@@ -30,21 +30,12 @@ main:
         id_generator: Incremental
       project:
         plugins: ['Datestamps']
-        # id_generator: Incremental
       user:
         plugins: ['Datestamps']
       department:
         plugins: ['Datestamps']
       research_group:
         plugins: ['Datestamps']
-        # id_generator: Incremental
-
-metrics:
-  package: DBI
-  options:
-    data_source: "DBI:mysql:database=librecat_metrics"
-    username: librecat
-    password: librecat
 
 search:
   package: ElasticSearch

@@ -75,7 +75,7 @@ requires 'Business::ISBN13';
 requires 'App::bmkpasswd', '2.010001';
 requires 'Clone';
 requires 'DateTime';
-requires 'DBD::mysql', '>= 4.037';
+requires 'DBD::Pg', '>= 3.6.2';
 requires 'DBD::SQLite';
 requires 'Config::Onion', '>=1.007';
 requires 'Crypt::Digest::MD5';
