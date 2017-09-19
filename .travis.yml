@@ -15,7 +15,9 @@ matrix:
   include:
     perl: "5.26"
     env: GEARMAN_NETWORK_TEST=1 NETWORK_TEST=1
-  allow_failures: true
+  allow_failures:
+    perl: "5.26"
+    env: GEARMAN_NETWORK_TEST=1 NETWORK_TEST=1
 
 before_install:
   - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.7.5.deb && sudo dpkg -i --force-confnew elasticsearch-1.7.5.deb && sudo service elasticsearch restart
