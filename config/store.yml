@@ -10,31 +10,43 @@ main:
     bags:
       audit:
         mapping:
-            id:
-                type: string
-                column: pid
-            bag:
-                type: string
-            process:
-                type: string
-            action:
-                type: string
-            message:
-                type: string
-            time:
-                type: integer
-      session:
+            id: {type: string, column: pid}
+            bag: {type: string}
+            process: {type: string}
+            action: {type: string}
+            message: {type: string}
+            time: {type: integer}
+      department:
+        mapping:
+          _id: {column: id, type: string, index: 1, unique: 1, required: 1}
+          _data: {column: data, type: binary, serialize: all}
+        plugins: ['Datestamps']
+      project:
+        mapping:
+          _id: {column: id, type: string, index: 1, unique: 1, required: 1}
+          _data: {column: data, type: binary, serialize: all}
         plugins: ['Datestamps']
       publication:
-        plugins: ['Datestamps', 'Versioning', 'LibreCat::PublicationStore']
         id_generator: Incremental
-      project:
-        plugins: ['Datestamps']
-      user:
-        plugins: ['Datestamps']
-      department:
+        mapping:
+          _id: {column: id, type: string, index: 1, unique: 1, required: 1}
+          _data: {column: data, type: binary, serialize: all}
+          date_created: {type: string, index: 1}
+          date_updated: {type: string, index: 1}
+          doi: {type: string, index: 1}
+        plugins: ['Datestamps', 'Versioning', 'LibreCat::PublicationStore']
+      session:
         plugins: ['Datestamps']
       research_group:
+        mapping:
+          _id: {column: id, type: string, index: 1, unique: 1, required: 1}
+          _data: {column: data, type: binary, serialize: all}
+        plugins: ['Datestamps']
+      user:
+        mapping:
+          _id: {column: id, type: string, index: 1, unique: 1, required: 1}
+          _data: {column: data, type: binary, serialize: all}
+          orcid: {type: string, index: 1}
         plugins: ['Datestamps']
 
 search:
