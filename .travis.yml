@@ -12,9 +12,9 @@ cache:
 
 env:
 matrix:
-  include:
-    perl: "5.26"
-    env: GEARMAN_NETWORK_TEST=1 NETWORK_TEST=1
+  # include:
+  #   perl: "5.26"
+  #   env: GEARMAN_NETWORK_TEST=1 NETWORK_TEST=1
   allow_failures:
     perl: "5.26"
     env: GEARMAN_NETWORK_TEST=1 NETWORK_TEST=1
