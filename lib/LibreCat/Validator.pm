@@ -8,45 +8,19 @@ use Moo;
 use namespace::clean;
 
 has bag => (is => 'ro', required => 1);
-has _fixer     => (is => 'lazy');
 has _validator => (is => 'lazy');
 
-sub _build__fixer {
-    my $self = shift;
-
-    my $bag  = $self->bag;
-    my $file = "update_$bag.fix";
-    h->log->debug("searching for fix '$file'");
-
-    for my $p (@{LibreCat->layers->fixes_paths}) {
-        h->log->debug("testing `$p/$file'");
-        if (-r "$p/$file") {
-            h->log->debug("found '$p/$file'");
-            return Catmandu::Fix->new(fixes => ["$p/$file"]);
-        }
-    }
-
-    h->log->error("can't find a fixer for: '$file'");
-
-    return;
-}
-
-sub _build__validator {
+sub _build_validator {
     my $self = shift;
     my $bag  = $self->bag;
     require_package(ucfirst($bag), 'LibreCat::Validator')->new;
 }
 
-sub check {
+sub validate {
     my ($self, $data) = @_;
 
-    my %opts;
-
     my $bag       = $self->bag;
-    my $fix       = $self->_fixer;
     my $validator = $self->_validator;
-
-    $data = $fix->fix($data) if $fix;
 
     my @white_list = $validator->white_list;
 

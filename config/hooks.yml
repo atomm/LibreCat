@@ -25,7 +25,7 @@ hooks:
   publication-update:
     options:
       bag: publication
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes:
       - index_record
       - new_research_data_email
@@ -35,7 +35,7 @@ hooks:
   publication-update-cmd:
     options:
       bag: publication
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: []
 
   # Code that runs at a 'Make public' action
@@ -71,7 +71,7 @@ hooks:
   publication-import:
     options:
       bag: publication
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: ['index_record']
 
   # Code that runs when importing a Quick and Easy publication
@@ -83,54 +83,55 @@ hooks:
   project-update-cmd:
     options:
       bag: project
-    before_fixes: ['validate']
+    default_before_fixes: ['fixes/update_project.fix']
+    before_fixes: []
     after_fixes: []
 
   # Code that runs when updating a department via cli
   department-update-cmd:
     options:
       bag: department
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: []
 
   # Code that runs when updating a research_group via cli
   research_group-update-cmd:
     options:
       bag: research_group
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: []
 
   # Code that runs when updating an user via cli
   user-update-cmd:
     options:
       bag: user
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: []
 
   # Code that runs when updating an user
   user-update:
     options:
       bag: user
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: ['index_record']
 
   # Code that runs when updating a project
   project-update:
     options:
       bag: project
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: ['index_record']
 
   # Code that runs when updating a department
   department-update:
     options:
       bag: department
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: ['index_record']
 
   # Code that runs when updating a research_group
   research_group-update:
     options:
       bag: research_group
-    before_fixes: ['validate']
+    before_fixes: []
     after_fixes: ['index_record']
