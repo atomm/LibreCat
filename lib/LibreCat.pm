@@ -100,17 +100,17 @@ sub load_fix {
         return Catmandu->fixer([$fix]);
     }
 
-    h->log->debug("searching for fix '$fix'");
+    # h->log->debug("searching for fix '$fix'");
     for my $path (@{$self->layers->fixes_paths}) {
         my $file = "$path/$fix";
         if (-r $file) {
-            h->log->debug("found '$file'");
+            # h->log->debug("found '$file'");
             return Catmandu->fixer([$file]);
         }
     }
 
     my $err = "can't find fix '$fix'";
-    h->log->error($err);
+    # h->log->error($err);
     croak $err;
 }
 

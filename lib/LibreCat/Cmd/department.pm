@@ -2,6 +2,7 @@ package LibreCat::Cmd::department;
 
 use Catmandu::Sane;
 use LibreCat::App::Helper;
+use LibreCat::Validator;
 use LibreCat::Validator::Department;
 use Carp;
 use parent qw(LibreCat::Cmd);
@@ -306,6 +307,8 @@ sub _add {
             LibreCat->hook('department-update-cmd')->fix_around(
                 $rec,
                 sub {
+                    my $validator = LibreCat::Validator->new(bag => 'department');
+                    $validator->validate($rec);
                     if ($rec->{_validation_errors}) {
                         print STDERR join("\n",
                             $rec->{_id},

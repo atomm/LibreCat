@@ -2,6 +2,7 @@ package LibreCat::Cmd::research_group;
 
 use Catmandu::Sane;
 use LibreCat::App::Helper;
+use LibreCat::Validator;
 use LibreCat::Validator::Research_group;
 use Carp;
 use parent qw(LibreCat::Cmd);
@@ -190,6 +191,8 @@ sub _add {
             LibreCat->hook('research_group-update-cmd')->fix_around(
                 $rec,
                 sub {
+                    my $validator = LibreCat::Validator->new(bag => 'research_group');
+                    $validator->validate($rec);
                     if ($rec->{_validation_errors}) {
                         print STDERR join("\n",
                             $rec->{_id},

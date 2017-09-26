@@ -2,6 +2,7 @@ package LibreCat::Cmd::user;
 
 use Catmandu::Sane;
 use LibreCat::App::Helper;
+use LibreCat::Validator;
 use LibreCat::Validator::User;
 use App::bmkpasswd qw(passwdcmp mkpasswd);
 use Carp;
@@ -199,6 +200,8 @@ sub _add {
             LibreCat->hook('user-update-cmd')->fix_around(
                 $rec,
                 sub {
+                    my $validator = LibreCat::Validator->new(bag => 'user');
+                    $validator->validate($rec);
                     if ($rec->{_validation_errors}) {
                         print STDERR join("\n",
                             $rec->{_id},

@@ -2,6 +2,7 @@ package LibreCat::Cmd::project;
 
 use Catmandu::Sane;
 use LibreCat::App::Helper;
+use LibreCat::Validator;
 use LibreCat::Validator::Project;
 use Carp;
 use parent qw(LibreCat::Cmd);

@@ -25,16 +25,15 @@ hooks:
   publication-update:
     options:
       bag: publication
+    default_before_fixes: ['update_publication.fix']
     before_fixes: []
-    after_fixes:
-      - index_record
-      - new_research_data_email
-      - new_research_data_datacite
+    after_fixes: ['index_record']
 
   # Code that runs when updating a publication via cli
   publication-update-cmd:
     options:
       bag: publication
+    default_before_fixes: ['update_publication.fix']
     before_fixes: []
     after_fixes: []
 
@@ -43,10 +42,7 @@ hooks:
     options:
       bag: publication
     before_fixes: []
-    after_fixes:
-      - index_record
-      - new_research_data_email
-      - new_research_data_datacite
+    after_fixes: ['index_record']
 
   # Code that runs when deleting a publication
   publication-delete:
@@ -83,7 +79,7 @@ hooks:
   project-update-cmd:
     options:
       bag: project
-    default_before_fixes: ['fixes/update_project.fix']
+    default_before_fixes: ['update_project.fix']
     before_fixes: []
     after_fixes: []
 
@@ -91,6 +87,7 @@ hooks:
   department-update-cmd:
     options:
       bag: department
+    default_before_fixes: ['update_department.fix']
     before_fixes: []
     after_fixes: []
 
@@ -98,6 +95,7 @@ hooks:
   research_group-update-cmd:
     options:
       bag: research_group
+    default_before_fixes: ['update_research_group.fix']
     before_fixes: []
     after_fixes: []
 
@@ -105,6 +103,7 @@ hooks:
   user-update-cmd:
     options:
       bag: user
+    default_before_fixes: ['update_user.fix']
     before_fixes: []
     after_fixes: []
 
@@ -112,6 +111,7 @@ hooks:
   user-update:
     options:
       bag: user
+    default_before_fixes: ['update_user.fix']
     before_fixes: []
     after_fixes: ['index_record']
 
@@ -126,6 +126,7 @@ hooks:
   department-update:
     options:
       bag: department
+    default_before_fixes: ['update_department.fix']
     before_fixes: []
     after_fixes: ['index_record']
 
@@ -133,5 +134,6 @@ hooks:
   research_group-update:
     options:
       bag: research_group
+    default_before_fixes: ['update_research_group.fix']
     before_fixes: []
     after_fixes: ['index_record']

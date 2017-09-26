@@ -4,6 +4,7 @@ use Catmandu::Sane;
 use Catmandu;
 use Catmandu::Util;
 use LibreCat::App::Helper;
+use LibreCat::Validator;
 use LibreCat::Validator::Publication;
 use LibreCat::App::Catalogue::Controller::File;
 use Path::Tiny;
@@ -293,6 +294,8 @@ sub _add {
             LibreCat->hook('publication-update-cmd')->fix_around(
                 $rec,
                 sub {
+                    my $validator = LibreCat::Validator->new(bag => 'publication');
+                    $validator->validate($rec);
                     if ($rec->{_validation_errors}) {
                         print STDERR join("\n",
                             $rec->{_id},
