@@ -185,6 +185,7 @@ sub _add {
     my $importer = Catmandu->importer('YAML', file => $file);
     my $helper   = LibreCat::App::Helper::Helpers->new;
     my $bag      = Catmandu->store('main')->bag('user');
+    my $validator = LibreCat::Validator->new(bag => 'user');
 
     my $records = $importer->select(
         sub {
@@ -200,19 +201,17 @@ sub _add {
             LibreCat->hook('user-update-cmd')->fix_around(
                 $rec,
                 sub {
-                    my $validator = LibreCat::Validator->new(bag => 'user');
-                    $validator->validate($rec);
-                    if ($rec->{_validation_errors}) {
+                    if ( $validator->is_valid($rec) ) {
+                        $bag->add($rec);
+                    }
+                    else {
                         print STDERR join("\n",
                             $rec->{_id},
                             "ERROR: not a valid user",
-                            @{$rec->{_validation_errors}}),
+                            @{$validator->last_errors}),
                             "\n";
                         $ret   = 2;
                         $is_ok = 0;
-                    }
-                    else {
-                        $bag->add($rec);
                     }
                 }
             );
@@ -260,7 +259,7 @@ sub _valid {
 
     croak "usage: $0 valid <FILE>" unless defined($file) && -r $file;
 
-    my $validator = LibreCat::Validator::User->new;
+    my $validator = LibreCat::Validator->new(bag => 'user');
 
     my $ret = 0;
 
