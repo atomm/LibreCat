@@ -1,23 +1,20 @@
-use Catmandu::Sane;
+use strict;
+use warnings FATAL => 'all';
 use LibreCat load => (layer_paths => [qw(t/layer)]);
 use Test::More;
-use File::Slurp;
+use Data::Dumper;
 
-my @worker_pkg;
+my $pkg;
 
 BEGIN {
-    @worker_pkg = map {
-        $_ =~ s/\.pm$//;
-        'LibreCat::Validator::' . $_;
-    } read_dir('lib/LibreCat/Validator/');
-
-    use_ok $_ for @worker_pkg;
+    $pkg = 'LibreCat::Validator';
+    use_ok $pkg;
 }
 
-require_ok $_ for @worker_pkg;
+require_ok $pkg;
 
 {
-    my $x = LibreCat::Validator::User->new;
+    my $x = $pkg->new(bag => 'user');
 
     ok $x , 'got a user validator';
 
@@ -48,7 +45,7 @@ require_ok $_ for @worker_pkg;
 }
 
 {
-    my $x = LibreCat::Validator::Research_group->new;
+    my $x = $pkg->new(bag => 'research_group');
 
     ok $x , 'got a research_group validator';
 
@@ -70,7 +67,7 @@ require_ok $_ for @worker_pkg;
 }
 
 {
-    my $x = LibreCat::Validator::Department->new;
+    my $x = $pkg->new(bag => 'department');
 
     ok $x , 'got a department validator';
 
@@ -99,7 +96,7 @@ require_ok $_ for @worker_pkg;
 }
 
 {
-    my $x = LibreCat::Validator::Project->new;
+    my $x = $pkg->new(bag => 'project');
 
     ok $x , 'got a project validator';
 
@@ -121,7 +118,7 @@ require_ok $_ for @worker_pkg;
 }
 
 {
-    my $x = LibreCat::Validator::Publication->new;
+    my $x = $pkg->new(bag => 'publication');
 
     ok $x , 'got a publication validator';
 
