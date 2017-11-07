@@ -22,13 +22,17 @@ require_ok $pkg;
 
     $result = test_app(qq|LibreCat::CLI| => ['url', 'do_nonsense']);
     ok $result->error, 'threw an exception: cmd unknown';
+    $result = test_app(qq|LibreCat::CLI| => ['url', 'check']);
+    ok $result->error, 'threw an exception';
 }
 
-{
-    my $result = test_app(qq|LibreCat::CLI| => ['url', 'check']);
-    ok $result->error, 'threw an exception';
+SKIP: {
 
-    $result = test_app(
+    unless ($ENV{NETWORK_TEST}) {
+        skip("No network. Set NETWORK_TEST to run these tests.", 5);
+    }
+
+    my $result = test_app(
         qq|LibreCat::CLI| => ['url', 'check', 't/records/urls.yml']);
     ok !$result->error, 'threw no exception';
 
