@@ -4,6 +4,7 @@ use Test::More;
 use File::Slurp;
 use App::Cmd::Tester;
 use LibreCat::CLI;
+use Data::Dumper;
 
 my $pkg;
 my @cmd_pkg;
@@ -22,6 +23,15 @@ BEGIN {
 require_ok $pkg;
 
 require_ok $_ for @cmd_pkg;
+
+foreach (@cmd_pkg) {
+    $_ =~ s/LibreCat::Cmd:://;
+    my $result = test_app(qq|LibreCat::CLI| => [$_, "--help"]);
+    ok $result->stdout, "printed what we expected for $_";
+    # note Dumper $result->error;
+    # is $result->error, undef, "threw no exceptions for help for $_";
+    # is $result->stderr, '', "nothing sent to stderr for $_";
+}
 
 my $result = test_app(qq|LibreCat::CLI| => [qw()]);
 

@@ -6,6 +6,15 @@ use Catmandu;
 use POSIX qw(strftime);
 use parent 'LibreCat::Cmd';
 
+sub description {
+    return <<EOF;
+Usage:
+
+librecat sitemap --dir DIR
+
+EOF
+}
+
 sub command_opt_spec {
     (["dir=s", "", {required => 1}],);
 }
